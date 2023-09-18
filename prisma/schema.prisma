@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  conteudo String
+  curtidas String
+  createAt DateTime @default(now())
+  updateAte DateTime @updatedAt
+  comentarios Comentario[]
+  usuarioId String @db.ObjectId
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  favoritosId String @db.ObjectId
+  favoritos Favorito @relation(fields: [favoritosId], references: [id])
+  @@map("posts")
+}
+
+model Comentario {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  conteudo String
+  usuario Usuario?
+  createAt DateTime @default(now())
+  updateAte DateTime @updatedAt
+  postId String @db.ObjectId
+  posts Post @relation(fields: [postId], references: [id])
+  @@map("comentarios")
+}
+
+model Usuario {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nomeUsuario String
+  senha String
+  email String @unique
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  feed Feed?
+  posts Post[]
+  favoritos Favorito[]
+  curtidos Curtido[]
+  comentarioId String @db.ObjectId @unique
+  comentario Comentario @relation(fields: [comentarioId], references: [id], onUpdate: NoAction)
+  @@map("usuarios")
+}
+
+model Favorito {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  post Post[]
+  usuarioId String @db.ObjectId
+  usuarios Usuario @relation(fields: [usuarioId], references: [id])
+  @@map("favoritos")
+}
+
+model Curtido {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  usuarioId String @db.ObjectId
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  @@map("curtidos")
+}
+
+model Feed {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  usuarioId String @db.ObjectId @unique
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  @@map("feed")
+}
