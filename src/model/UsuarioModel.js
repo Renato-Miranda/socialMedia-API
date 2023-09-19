@@ -1,5 +1,5 @@
 class UsuarioModel {
-    constructor(nomeUsuario, senha, email, feed, posts, favoritos, curtidos, comentarioId) {
+    constructor(nomeUsuario, senha, email, feed, posts, favoritos, curtidos, comentario) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
         this.email = email;
@@ -7,7 +7,7 @@ class UsuarioModel {
         this.posts = posts;
         this.favoritos = favoritos;
         this.curtidos = curtidos;
-        this.comentarioId = comentarioId;
+        this.comentario = comentario;
     }
 }
 
