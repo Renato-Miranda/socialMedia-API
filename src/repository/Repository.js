@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 class Repository {
   /**
-   * Inserir único usuário 
+   * Método geral para inserir único usuário 
    * @param { object } data 
    * @param { string } entidade 
    * @returns 
@@ -14,16 +14,31 @@ class Repository {
   }
 
   /**
-   * Método para buscar todos
+   * Método geral para buscar todos
    * @param { String } entidade 
-   * @returns { Array<any> }
+   * @returns { Array<object> }
    */
   static async buscar(entidade) {
     return await prisma[entidade].findMany()
   }
 
   /**
-   * Método para atualizar registro
+   * Método geral para buscar um único usuário
+   * @param { string } id 
+   * @param { string } entidade 
+   * @returns { object }
+   */
+  static async buscarUnico(id, entidade) {
+    return await prisma[entidade].findOne({
+      where: {
+        id: id
+      }
+    }
+    )
+  }
+
+  /**
+   * Método geral para atualizar registro
    * @param { object } data 
    * @param { string } id 
    */
@@ -37,7 +52,7 @@ class Repository {
   }
 
   /**
-   * Método para excluir registro de entidade
+   * Método geral para excluir registro de entidade
    * @param { string } id 
    * @param { string } entidade 
    */
