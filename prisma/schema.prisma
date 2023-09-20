@@ -34,7 +34,7 @@ model Post {
   curtido Curtido? @relation(fields: [curtidoId], references: [id])
 
   createAt DateTime @default(now())
-  updateAte DateTime @updatedAt
+  updateAt DateTime @updatedAt
 
   comentarios Comentario[]
 
