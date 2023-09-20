@@ -25,17 +25,15 @@ class UsuarioController {
 
     })
 
-    //Buscar usuário por id
-    // app.get('/usuarios/:id', (req, res) => {
-    //   const id = req.params.id
-    //   const buscaUsuarios = UsuarioRepository.buscarUsuario()
+    // Buscar usuário por id
+    app.get('/usuarios/:id', (req, res) => {
+      const id = req.params.id
+      const buscaUsuarios = UsuarioRepository.buscarUsuario()
 
-    //   buscaUsuarios.then((result) => {
-    //     res.send(
-    //       UsuarioRepository.buscarUsuario(result[id].id)
-    //     )
-    //   })
-    // })
+      buscaUsuarios.then((result) => {
+        res.send(result[id - 1])
+      })
+    })
 
     //Fazer update de usuário
     app.put('/usuarios/:id', (req, res) => {
@@ -44,7 +42,7 @@ class UsuarioController {
       const buscaUsuarios = UsuarioRepository.buscarUsuario()
 
       buscaUsuarios.then((result) => {
-        res.status(204).json(UsuarioRepository.updateUsuario(data, result[id].id))
+        res.status(204).json(UsuarioRepository.updateUsuario(data, result[id - 1].id))
       })
     })
 
@@ -54,7 +52,7 @@ class UsuarioController {
       const buscaUsuarios = UsuarioRepository.buscarUsuario()
 
       buscaUsuarios.then((result) => {
-        res.status(204).json(UsuarioRepository.deleteUsuario(result[id].id))
+        res.status(204).json(UsuarioRepository.deleteUsuario(result[id - 1].id))
       })
     })
   }
