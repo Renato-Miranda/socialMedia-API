@@ -6,7 +6,7 @@ class PostController {
    * @param { Express } app 
    */
   static rotas(app) {
-    //Inserir novo usuário
+    //Inserir novo post
     app.post('/post', async (req, res) => {
       const data = req.body
       
@@ -15,7 +15,7 @@ class PostController {
       )
     })
 
-    //Buscar Todos os Usuários
+    //Buscar todos os posts
     app.get('/post', (req, res) => {
       const buscaPosts = PostRepository.buscarPost()
 
@@ -25,7 +25,7 @@ class PostController {
 
     })
 
-    // Buscar usuário por id
+    // Buscar post por id de usuário
     app.get('/post/:id', (req, res) => {
       const id = req.params.id
       const buscaPosts = PostRepository.buscarPost()
@@ -35,7 +35,7 @@ class PostController {
       })
     })
 
-    //Fazer update de usuário
+    //Fazer update de post
     app.put('/post/:id', (req, res) => {
       const data = req.body
       const id = req.params.id
@@ -46,7 +46,7 @@ class PostController {
       })
     })
 
-    //Fazer a deleção do usuário
+    //Fazer a deleção de post
     app.delete('/post/:id', (req, res) => {
       const id = req.params.id
       const buscaPosts = PostRepository.buscarPost()

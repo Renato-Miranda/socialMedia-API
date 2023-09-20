@@ -6,7 +6,7 @@ class FeedController {
    * @param { Express } app 
    */
   static rotas(app) {
-    //Inserir novo usuário
+    //Inserir novo feed
     app.post('/feed', async (req, res) => {
       const data = req.body
       
@@ -15,7 +15,7 @@ class FeedController {
       )
     })
 
-    //Buscar Todos os Usuários
+    //Buscar Todos os feeds
     app.get('/feed', (req, res) => {
       const buscaFeed = FeedRepository.buscarFeed()
 
@@ -25,7 +25,7 @@ class FeedController {
 
     })
 
-    // Buscar usuário por id
+    // Buscar feed por id do usuário
     app.get('/feed/:id', (req, res) => {
       const id = req.params.id
       const buscaFeed = FeedRepository.buscarFeed()
@@ -35,7 +35,7 @@ class FeedController {
       })
     })
 
-    //Fazer update de usuário
+    //Fazer update do feed
     app.put('/feed/:id', (req, res) => {
       const data = req.body
       const id = req.params.id
@@ -46,7 +46,7 @@ class FeedController {
       })
     })
 
-    //Fazer a deleção do usuário
+    //Fazer a deleção do feed
     app.delete('/feed/:id', (req, res) => {
       const id = req.params.id
       const buscaFeed = FeedRepository.buscarFeed()
