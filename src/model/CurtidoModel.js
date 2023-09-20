@@ -1,7 +1,7 @@
 class CurtidoModel {
-    constructor(usuarioId, pots) {
+    constructor(usuarioId, posts) {
         this.usuarioId = usuarioId;
-        this.pots =pots;
+        this.posts =posts;
     }
 }
 
