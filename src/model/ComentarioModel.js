@@ -1,8 +1,8 @@
 class ComentarioModel {
-    constructor(conteudo, usuario, postId) {
+    constructor(conteudo, postId, usuarioId) {
         this.conteudo = conteudo;
-        this.usuario = usuario;
         this.postId = postId;
+        this.usuarioId = usuarioId;
     }
 }
 
