@@ -7,7 +7,8 @@
   "scripts": {
     "start": "npm run data & node ./app.js",
     "dev": "nodemon ./app.js",
-    "data": "node ./src/utils/insertData.js"
+    "data": "node ./src/utils/insertData.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
