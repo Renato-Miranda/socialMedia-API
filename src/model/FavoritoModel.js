@@ -1,7 +1,7 @@
 class FavoritoModel {
-    constructor( post, usuarioId) {
-        this.post = post;
-        this.usuarioId = usuariosId;
+    constructor(posts, usuarioId) {
+        this.posts = posts;
+        this.usuarioId = usuarioId;
         
     }
 }
