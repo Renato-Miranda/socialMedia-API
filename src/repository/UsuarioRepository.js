@@ -25,7 +25,16 @@ class UsuarioRepository extends Repository {
    * @returns { object }
    */
   static async buscarUsuarioUnico(id) {
-    return this.buscarUnico(id, entidade)
+    return this.buscarUnicoId(id, entidade)
+  }
+
+  /**
+   * Método para buscar usuário por email
+   * @param { string } value 
+   * @returns { object }
+   */
+  static async buscarUsuarioEmail(value) {
+    return this.buscarUnicoEmail(value, entidade)
   }
   
   /**
