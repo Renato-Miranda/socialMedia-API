@@ -1,8 +1,8 @@
 import UsuarioRepository from "../repository/UsuarioRepository.js";
 
 class ValidacaoUsuarioServices {
-    static validaExistenciaUsuario(email) {
-        const usuario = UsuarioRepository.buscarUsuarioEmail(email)
+    static async validaExistenciaUsuario(email) {
+        const usuario = await UsuarioRepository.buscarUsuarioEmail(email)
         if (usuario) {
             return true
         } else {
