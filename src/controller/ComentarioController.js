@@ -1,5 +1,6 @@
 import ComentarioRepository from "../repository/ComentarioRepository.js"
 import ComentarioModel from "../model/ComentarioModel.js"
+import ValidacaoComentarioServices from "../services/ValidacaoComentarioServices.js"
 
 class ComentarioController {
   /**
@@ -9,12 +10,20 @@ class ComentarioController {
   static rotas(app) {
     // Inserir novo Comentario
     app.post('/comentario', async (req, res) => {
-        const data = Object.values(req.body)
-        const novoComentario = new ComentarioModel(...data)
-
+      const data = Object.values(req.body)
+      const novoComentario = new ComentarioModel(...data)
+      const comentarioIsValid = ValidacaoComentarioServices.ValidaConteudoComentario(novoComentario)
+      if (comentarioIsValid) {
         res.status(201).json(
           ComentarioRepository.inserirComentario(novoComentario)
         )
+      }
+      else {
+        res.status(406).json({
+          error: true,
+          message: `Comentário inválido`
+        })
+      }
     })
 
     // Buscar Todos os Comentarios
@@ -22,7 +31,7 @@ class ComentarioController {
       const buscarComentario = ComentarioRepository.buscarComentario()
 
       buscarComentario.then((result) => {
-        if(result && result.length > 0) {
+        if (result && result.length > 0) {
           res.status(200).json(result)
         } else {
           res.status(404).json({
@@ -39,7 +48,7 @@ class ComentarioController {
       const buscarComentarioUnico = ComentarioRepository.buscarComentarioUnico()
 
       buscarComentarioUnico.then((result) => {
-        if(result && result[id - 1]) {
+        if (result && result[id - 1]) {
           res.status(200).json(result[id - 1])
         } else {
           res.status(404).json({
@@ -57,7 +66,7 @@ class ComentarioController {
       const buscarComentario = ComentarioRepository.buscarComentario()
 
       buscarComentario.then((result) => {
-        if(result && result[id - 1]) {
+        if (result && result[id - 1]) {
           ComentarioRepository.updateComentario(data, result[id - 1].id)
           res.status(204).end()
         } else {
@@ -75,7 +84,7 @@ class ComentarioController {
       const buscarComentario = ComentarioRepository.buscarComentario()
 
       buscarComentario.then((result) => {
-        if(result && result[id - 1]) {
+        if (result && result[id - 1]) {
           ComentarioRepository.deleteComentario(result[id - 1].id)
           res.status(204).end()
         } else {
