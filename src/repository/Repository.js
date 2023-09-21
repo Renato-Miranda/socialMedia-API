@@ -23,15 +23,30 @@ class Repository {
   }
 
   /**
-   * Método geral para buscar um único usuário
+   * Método geral para buscar um único usuário por id
    * @param { string } id 
    * @param { string } entidade 
    * @returns { object }
    */
-  static async buscarUnico(id, entidade) {
-    return await prisma[entidade].findOne({
+  static async buscarUnicoId(id, entidade) {
+    return await prisma[entidade].findUnique({
       where: {
         id: id
+      }
+    }
+    )
+  }
+
+  /**
+   * Método geral para buscar um único usuário por email
+   * @param { string } value 
+   * @param { string } entidade 
+   * @returns { object }
+   */
+  static async buscarUnicoEmail(value, entidade) {
+    return await prisma[entidade].findUnique({
+      where: {
+        email: value
       }
     }
     )
