@@ -7,7 +7,7 @@ class FavoritoRepository extends Repository {
    * Método para inserir comentário
    * @param { object } data 
    */
-  static async inserirComentario(data) {
+  static async inserirFavorito(data) {
     await this.inserir(data, entidade)
   }
 
@@ -15,7 +15,7 @@ class FavoritoRepository extends Repository {
    * Método para buscar todos os comentários
    * @returns { Array<object> }
    */
-  static async buscarComentario() {
+  static async buscarFavorito() {
     return this.buscar(entidade)
   }
 
@@ -33,7 +33,7 @@ class FavoritoRepository extends Repository {
    * @param { object } data 
    * @param { string } id 
    */
-  static async updateComentario(data, id) {
+  static async updateFavorito(data, id) {
     await this.update(data, id, entidade)
   }
 
@@ -41,7 +41,7 @@ class FavoritoRepository extends Repository {
    * Método para excluir comentário
    * @param { string } id 
    */
-  static async deleteComentario(id) {
+  static async deleteFavorito(id) {
     await this.delete(id, entidade)
   }
 }
