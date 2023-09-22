@@ -61,6 +61,7 @@ model Comentario {
 model Feed {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   usuario Usuario? @relation(fields: [usuarioId], references: [id])
+  posts String[]
 
   usuarioId String? @db.ObjectId @unique
   @@map("feed")

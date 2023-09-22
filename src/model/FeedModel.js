@@ -1,6 +1,7 @@
 class FeedModel {
-    constructor(usuarioId) {
-        this.usuarioId = usuarioId;
+    constructor(usuarioId, posts) {
+        this.usuarioId = usuarioId
+        this.post = posts
     }
 }
 
