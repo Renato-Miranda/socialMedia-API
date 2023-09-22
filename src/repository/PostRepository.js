@@ -25,7 +25,7 @@ class PostRepository extends Repository {
    * @returns { object }
    */
   static async buscarPostUnico(id) {
-    return this.buscarUnico(id, entidade)
+    return this.buscarUnicoId(id, entidade)
   }
 
   /**

@@ -1,9 +1,9 @@
 class PostModel {
-    constructor(conteudo, curtidas, comentarios, usuarioId, favoritosId, curtidoId)  {
+    constructor(conteudo, curtidas, usuarioId, comentarios, favoritosId, curtidoId)  {
         this.conteudo = conteudo;
         this.curtidas = curtidas;
-        this.comentarios = comentarios;
         this.usuarioId = usuarioId;
+        this.comentarios = comentarios;
         this.favoritosId = favoritosId;
         this.curtidoId = curtidoId;
     }

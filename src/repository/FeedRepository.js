@@ -1,4 +1,9 @@
 import Repository from "./Repository.js";
+import UsuarioRepository from "./UsuarioRepository.js";
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 const entidade = "feed"
 
@@ -25,7 +30,7 @@ class FeedRepository extends Repository {
    * @returns { object }
    */
   static async buscarFeedPorUsuario(id) {
-    return this.buscarUnico(id, entidade)
+    return UsuarioRepository.buscarUsuarioUnico(id)
   }
 
   /**
@@ -35,6 +40,23 @@ class FeedRepository extends Repository {
    */
   static async updateFeed(data, id) {
     await this.update(data, id, entidade)
+  }
+
+  static async postarFeed(feedId, postId, newData) {
+    const feed = await prisma.feed.findUnique({
+      where: {
+        id: feedId,
+      }
+    });
+  
+    const updatedPost = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        post: newData,
+      },
+    });
   }
 
   /**
