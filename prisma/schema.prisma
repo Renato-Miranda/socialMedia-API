@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nomeUsuario String
+  senha String
+  email String @unique
+
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  posts Post[]
+  comentario Comentario?
+  feed Feed?
+  favoritos Favorito?
+  curtidos Curtido[]
+  @@map("usuario")
+}
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  conteudo String
+  curtidas String
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  favorito Favorito? @relation(fields: [favoritoId], references: [id])
+  curtido Curtido? @relation(fields: [curtidoId], references: [id])
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  comentarios Comentario[]
+
+  usuarioId String @db.ObjectId
+  favoritoId String? @db.ObjectId
+  curtidoId String? @db.ObjectId
+  @@map("posts")
+}
+
+model Comentario {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  conteudo String
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+  post Post? @relation(fields: [postId], references: [id])
+
+  createAt DateTime @default(now())
+  updateAte DateTime @updatedAt
+
+  postId String? @db.ObjectId
+  usuarioId String? @db.ObjectId @unique
+  @@map("comentarios")
+}
+
+model Feed {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+  posts String[]
+
+  usuarioId String? @db.ObjectId @unique
+  @@map("feed")
+}
+
+model Favorito {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+
+  post Post[]
+  usuarioId String? @db.ObjectId @unique
+  @@map("favoritos")
+}
+
+model Curtido {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+
+  posts Post[]
+  usuarioId String? @db.ObjectId
+  @@map("curtidos")
+}
