@@ -1,4 +1,4 @@
-import PostModel from '../model/PostModel.js'
+import PostModel from '../model/PostModel.js';
 import ValidacaoPostServices from '../services/ValidacaoPostServices.js';
 import PostRepository from '../repository/PostRepository.js';
 class PostController {
@@ -18,7 +18,7 @@ class PostController {
         PostRepository.inserirPost(post);
         res.status(201).json({
           success: true,
-          message: `Post inserido com sucesso`
+          message: `Post inserido com sucesso`,
         });
       } else {
         res.status(406).json({
@@ -125,17 +125,19 @@ class PostController {
      */
     app.delete('/post/:id', (req, res) => {
       const id = req.params.id;
+    
       const buscarPosts = PostRepository.buscarPost();
-
+    
       buscarPosts.then((posts) => {
-        if (posts[id - 1]) {
-          const postParaExcluir = posts[id - 1];
+        const postParaExcluir = posts.find((post) => post.id === id);
+    
+        if (postParaExcluir) {
           PostRepository.deletePost(postParaExcluir.id);
           res.status(204).json();
         } else {
           res.status(404).json({
             error: true,
-            message: `Usuário com o id ${id} não encontrado`,
+            message: `Post com o id ${id} não encontrado`,
           });
         }
       });

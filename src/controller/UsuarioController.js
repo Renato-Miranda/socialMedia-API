@@ -15,7 +15,7 @@ class UsuarioController {
       const data = Object.values(req.body);
       const usuario = new UsuarioModel(...data);
 
-      if (ValidacaoUsuarioServices.ValidaCamposUsuario(...data)) {
+      if (ValidacaoUsuarioServices.validaSenha(usuario.senha)) {
         const usuarioInserido = UsuarioRepository.inserirUsuario(usuario);
         res.status(201).json({
           success: true,
@@ -140,6 +140,31 @@ class UsuarioController {
           });
         }
       });
+    });
+    
+    app.post('/login', async (req, res) => {
+      const { email } = req.body;
+      const password = req.get("X-Password");
+    
+      try {
+        const usuarios = await UsuarioRepository.buscarUsuario();
+    
+        const usuarioBuscado = usuarios.find(usuario => usuario.email === email);
+    
+        if (!usuarioBuscado) {
+          return res.status(401).json({ message: 'Email não encontrado.', success: false });
+        }
+    
+        if (usuarioBuscado.senha !== password) {
+          return res.status(401).json({ message: 'Senha incorreta.', success: false });
+        }
+    
+        res.status(200).json({ data: usuarioBuscado, success: true });
+      } catch (error) {
+        // Trate os erros aqui, se houver algum problema ao buscar os usuários.
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao buscar os usuários.', success: false });
+      }
     });
   }
 }

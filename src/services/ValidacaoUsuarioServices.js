@@ -36,8 +36,7 @@ class ValidacaoUsuarioServices {
     }
 
     static ValidaCamposUsuario(nomeUsuario, senha, email) {
-        const isValid = this.validaNomeUsuario(nomeUsuario) && this.validaEmail(email) && this.validaSenha(senha)
-        return isValid
+        return this.validaNomeUsuario(nomeUsuario) && this.validaEmail(email) && this.validaSenha(senha)
     }
 }
 
