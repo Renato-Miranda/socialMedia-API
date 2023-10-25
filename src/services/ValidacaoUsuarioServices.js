@@ -9,13 +9,13 @@ class ValidacaoUsuarioServices {
             return false
         }
     }
-
+ 
     static validaNomeUsuario(nomeUsuario) {
         return typeof nomeUsuario == "string" && nomeUsuario.length > 2
     }
 
     static validaEmail(email) {
-        let validacaoRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const validacaoRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
         return validacaoRegex.test(email);
     }
 
@@ -36,7 +36,7 @@ class ValidacaoUsuarioServices {
     }
 
     static ValidaCamposUsuario(nomeUsuario, senha, email) {
-        return this.validaNomeUsuario(nomeUsuario) && this.validaEmail(email) && this.validaSenha(senha)
+        return this.validaNomeUsuario(nomeUsuario) && this.validaEmail(email) && this.validaSenha(senha);
     }
 }
 

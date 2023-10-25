@@ -15,7 +15,7 @@ class UsuarioController {
       const data = Object.values(req.body);
       const usuario = new UsuarioModel(...data);
 
-      if (ValidacaoUsuarioServices.validaSenha(usuario.senha)) {
+      if (ValidacaoUsuarioServices.ValidaCamposUsuario(...data)) {
         const usuarioInserido = UsuarioRepository.inserirUsuario(usuario);
         res.status(201).json({
           success: true,
