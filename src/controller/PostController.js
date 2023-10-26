@@ -123,24 +123,31 @@ class PostController {
     /**
      * Método para deletar post
      */
-    app.delete('/post/:id', (req, res) => {
+    app.delete('/post/:id', async (req, res) => {
       const id = req.params.id;
-    
-      const buscarPosts = PostRepository.buscarPost();
-    
-      buscarPosts.then((posts) => {
-        const postParaExcluir = posts.find((post) => post.id === id);
-    
+
+      try {
+        const buscarPosts = await PostRepository.buscarPost();
+        const postParaExcluir = buscarPosts.find((post) => post.id === id);
+
         if (postParaExcluir) {
-          PostRepository.deletePost(postParaExcluir.id);
-          res.status(204).json();
+          await PostRepository.deletePost(postParaExcluir.id);
+          res.status(204).json({
+            error: false,
+            message: `Post com o id ${id} excluído com sucesso`,
+          });
         } else {
           res.status(404).json({
             error: true,
             message: `Post com o id ${id} não encontrado`,
           });
         }
-      });
+      } catch (error) {
+        res.status(500).json({
+          error: true,
+          message: `Ocorreu um erro ao excluir o post com o id ${id}`,
+        });
+      }
     });
   }
 }
